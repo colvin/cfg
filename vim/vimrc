@@ -1,0 +1,117 @@
+set nocompatible
+
+set modeline
+
+set nobackup
+set nowritebackup
+set noswapfile
+set hidden
+set ttyfast
+
+set noexpandtab
+set tabstop=8
+set softtabstop=8
+set shiftwidth=8
+
+set number "relativenumber
+set ruler nowrap
+set foldcolumn=1
+set hlsearch incsearch showmatch
+
+set autoindent
+set cinoptions=:0,t0,+4,(4
+set backspace=eol,start,indent
+set whichwrap=b,s,<,>,[,]
+set comments=s1:/*,mb:*,ex:*/
+set foldenable
+
+" reload file when changed externally
+set autoread
+
+set wildmenu
+set wildmode=full
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+
+" status bar
+set laststatus=2
+set statusline=\[%n]
+set statusline+=\ %F
+set statusline+=\ %m
+set statusline+=%y[%{&ff}]%{HasPaste()}
+set statusline+=%=
+" currentline : totallines : linepercent : column
+set statusline+=\ [\ %v:%l:%L:%p%%
+set statusline+=\ ]
+
+syntax on
+filetype plugin on
+filetype indent on
+
+set encoding=utf8
+set fileformats=unix,dos,mac
+
+augroup Perl
+	autocmd!
+	autocmd BufNewFile,BufRead {*.pl,*.pm,*.t} setlocal foldexpr=getline(v:lnum)=~'^=cut'?'<1':getline(v:lnum)=~'^='?'1':'=' |
+	autocmd BufNewFile,BufRead {*.pl,*.pm,*.t} setlocal foldmethod=expr
+	autocmd BufNewFile,BufRead {*.pl,*.pm,*.t} setlocal makeprg=perl\ -c\ -MVi::QuickFix\ %
+	autocmd BufNewFile,BufRead {*.pl,*.pm,*.t} setlocal errorformat+=%m\ at\ %f\ line\ %l.
+	autocmd BufNewFile,BufRead {*.pl,*.pm,*.t} setlocal errorformat+=%m\ at\ %f\ line\ %l
+	command PerlCheck !perl -c %
+augroup END
+
+augroup C
+	autocmd!
+	autocmd BufNewFile,BufRead {*.c,*.h,*.cpp} setlocal cindent
+	autocmd BufNewFile,BufRead {*.c,*.h,*.cpp} setlocal tabstop=8 softtabstop=8 shiftwidth=8 noexpandtab
+augroup END
+
+augroup Python
+	autocmd!
+	autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+augroup END
+
+augroup Groff
+	autocmd!
+	autocmd BufNewFile,BufRead *.groff,*.[1-9] setlocal filetype=groff
+augroup END
+
+augroup SQL
+	autocmd!
+	autocmd BufNewFile,BufRead *.sql,*.mysql setlocal filetype=mysql
+	autocmd BufNewFile,BufRead *.pgsql setlocal filetype=pgsql
+augroup END
+
+colorscheme delek
+set background=dark
+
+set list listchars=tab:\ .
+highlight SpecialKey ctermfg=DarkRed
+set list!
+
+highlight ExtraWhitespace ctermbg=red
+match ExtraWhitespace /\s\+$/
+
+highlight Folded ctermbg=black ctermfg=grey
+
+let mapleader = "-"
+
+nnoremap <leader>c :noh<cr>
+nnoremap <leader>l :set list!<cr>
+nnoremap <leader>p :setlocal paste!<cr>
+nnoremap <leader>4 :setlocal tabstop=4 softtabstop=4 shiftwidth=4<cr>
+nnoremap <leader>8 :setlocal tabstop=8 softtabstop=8 shiftwidth=8<cr>
+
+function! HasPaste()
+	if &paste
+		return '[paste]'
+	endif
+	return ''
+endfunction
+
+try
+	execute pathogen#infect()
+	map <C-n> :NERDTreeToggle<cr>
+catch
+endtry
+

@@ -1,0 +1,42 @@
+colvinrc=1
+
+if [ "$UID" -ne 0 ] && [ -z "$SSH_AGENT_PID" ] && [ -z "$SSH_CLIENT" ];then
+	echo "[bashrc]: ssh-agent"
+	ssh-agent $SHELL
+fi
+
+OS=$(uname -s)
+case $OS in
+	FreeBSD)	lscolor='-G'
+			;;
+	Linux)		lscolor='--color=auto'
+			;;
+	OpenBSD)	alias ls='colorls'
+			lscolor="-G"
+			alias tree='colortree'
+			;;
+esac
+
+## functions
+gitbranch() {
+	br=$( git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/' )
+	if [ -n "$br" ];then
+		echo -e ":[ $br ]"
+	fi
+}
+
+## vars
+export EDITOR="vim"
+export PS1='\u@\h:[\w]$(gitbranch):\$ '
+export PS2='o '
+export NTFS3G='noauto,uid=1001,gid=1001,dmask=027,fmask=137'
+
+## aliases
+alias l="clear;ls -F $lscolor;echo"
+alias ll="clear;ls -AF $lscolor;echo"
+alias gls="clear;ls -lhF $lscolor;echo"
+alias ghls="clear;ls -AlhF $lscolor;echo"
+alias c='clear'
+alias e='exit'
+alias tree='tree -AC'
+

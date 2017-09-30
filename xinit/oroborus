@@ -1,0 +1,2 @@
+oroborus &
+exec xterm -name login -bg black -fg white -fa Terminus:pixelsize=14

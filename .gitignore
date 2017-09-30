@@ -1,0 +1,8 @@
+*.swp
+*~
+*.tar
+*.tar.*
+*.tgz
+*.txz
+*.zip
+.depend*
