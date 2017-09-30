@@ -1,0 +1,11 @@
+*.swp
+*~
+*.tar
+*.tar.*
+*.tgz
+*.txz
+*.zip
+*.pyc
+*.o
+.depend*
+'
