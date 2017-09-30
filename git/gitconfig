@@ -1,0 +1,16 @@
+[user]
+	name = colvin
+	email = 14809057+colvinwellborn@users.noreply.github.com
+[push]
+	default = simple
+[alias]
+	st = status
+	co = checkout
+	m = checkout master
+	nb = checkout -b
+	b = branch
+	l = log --oneline --decorate
+	ll = log --all --oneline --decorate
+	gl = log --graph --decorate
+	gls = log --all --graph --decorate
+	dc = diff --cached
