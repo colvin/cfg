@@ -3,7 +3,7 @@ OS		!= uname -s
 ETC		= /etc
 HOME		= /home
 
-.if $(OS) == FreeBSD
+.if ($(OS) == FreeBSD) || ($(OS) == DragonFly)
 ETC		= /usr/local/etc
 .endif
 
