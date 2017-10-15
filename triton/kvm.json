@@ -1,0 +1,25 @@
+{
+  "brand":  "kvm",
+  "alias":  "ALIAS",
+  "hostname": "HOSTNAME",
+  "cpu_type": "host",
+  "vcpus":  1,
+  "ram":  1024,
+  "resolvers":  ["192.168.1.254","8.8.8.8"],
+  "nics": [
+    {
+      "nic_tag":  "admin",
+      "ips":  ["dhcp"],
+      "model":  "virtio",
+      "primary": true
+    }
+  ],
+  "disks":  [
+    {
+      "image_uuid": "UUID",
+      "image_size": 8192,
+      "boot": true,
+      "model":  "virtio"
+    }
+  ]
+}
