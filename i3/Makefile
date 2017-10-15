@@ -1,6 +1,7 @@
 CFGDIR		?= $(HOME)/.i3
 TERMINAL	?= i3-sensible-terminal
-PROFILE		?= freebsd
+OS		!= uname -s
+PROFILE		?= $(OS)
 
 all: $(CFGDIR) bkup install term $(PROFILE)
 
@@ -16,14 +17,17 @@ bkup:
 term:
 	sed -i -e 's/TERMINAL/$(TERMINAL)/' $(CFGDIR)/config
 
+FreeBSD: freebsd
 freebsd:
 	sed -i '' -e 's/xxxxxx/c02000/' $(CFGDIR)/config
 	sed -i '' -e 's/yyyyyy/c02000/' $(CFGDIR)/config
 
+OpenBSD: openbsd
 openbsd:
-	sed -i '' -e 's/xxxxxx/cc9900/' $(CFGDIR)/config
-	sed -i '' -e 's/yyyyyy/cc9900/' $(CFGDIR)/config
+	sed -i -e 's/xxxxxx/cc9900/' $(CFGDIR)/config
+	sed -i -e 's/yyyyyy/cc9900/' $(CFGDIR)/config
 
+Linux: archlinux
 arch: archlinux
 archlinux:
 	sed -i '' -e 's/xxxxxx/1793d1/' $(CFGDIR)/config
