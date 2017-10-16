@@ -84,7 +84,7 @@ augroup END
 
 augroup JSON
 	autocmd!
-	autocmd BufNewFile,BufRead *.jon setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+	autocmd BufNewFile,BufRead *.json setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 augroup END
 
 colorscheme delek
