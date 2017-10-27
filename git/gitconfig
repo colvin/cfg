@@ -2,7 +2,7 @@
 	name = colvin
 	email = 14809057+colvinwellborn@users.noreply.github.com
 [push]
-	default = simple
+	default = current
 [alias]
 	st = status
 	co = checkout
@@ -14,3 +14,4 @@
 	gl = log --graph --decorate
 	gls = log --all --graph --decorate
 	dc = diff --cached
+	lasttag = describe --tags --abbrev=0
