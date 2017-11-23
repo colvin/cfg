@@ -89,6 +89,7 @@ augroup END
 
 colorscheme delek
 set background=dark
+set t_Co=256
 
 set list listchars=tab:\ .
 highlight SpecialKey ctermfg=DarkRed
@@ -114,9 +115,7 @@ function! HasPaste()
 	return ''
 endfunction
 
-try
-	execute pathogen#infect()
-	map <C-n> :NERDTreeToggle<cr>
-catch
-endtry
-
+" https://github.com/vim-airline/vim-airline
+" https://github.com/vim-airline/vim-airline-themes
+let g:airline_theme = 'molokai'
+let g:airline#extensions#tabline#enabled = 1
