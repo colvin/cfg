@@ -17,6 +17,7 @@ set number "relativenumber
 set ruler nowrap
 set foldcolumn=1
 set hlsearch incsearch showmatch
+set noshowmode
 
 set autoindent
 set cinoptions=:0,t0,+4,(4
