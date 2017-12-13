@@ -3,15 +3,16 @@ PACKDIR		= ~/.vim/pack/bundle
 PACK_START	= \
 	ctrlpvim/ctrlp.vim.git\
 	vim-airline/vim-airline.git\
-	vim-airline/vim-airline-themes.git
+	vim-airline/vim-airline-themes.git\
+	w0rp/ale.git
 
-PACK_OPT	= \
-	bling/vim-bufferline.git\
-	ryanoasis/vim-devicons.git\
-	airblade/vim-gitgutter.git\
-	mbbill/undotree.git\
-	nathanaelkane/vim-indent-guides\
-	majutsushi/tagbar
+PACK_OPT	= #\
+#	bling/vim-bufferline.git\
+#	ryanoasis/vim-devicons.git\
+#	airblade/vim-gitgutter.git\
+#	mbbill/undotree.git\
+#	nathanaelkane/vim-indent-guides
+#	majutsushi/tagbar
 #	IrishPrime/WhiteWash.vim
 
 install:
