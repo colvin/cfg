@@ -25,7 +25,7 @@ install:
 pack: have-git pack-dir pack-start pack-opt
 
 have-git:
-	@type git
+	@which git
 
 pack-dir:
 	mkdir -p $(PACKDIR)/start
