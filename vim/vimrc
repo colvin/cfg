@@ -120,3 +120,8 @@ endfunction
 " https://github.com/vim-airline/vim-airline-themes
 let g:airline_theme = 'molokai'
 let g:airline#extensions#tabline#enabled = 1
+
+" https://github.com/w0rp/ale
+let g:ale_sign_column_always = 1
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
