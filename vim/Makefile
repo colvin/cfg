@@ -4,9 +4,12 @@ PACK_START	= \
 	ctrlpvim/ctrlp.vim.git\
 	vim-airline/vim-airline.git\
 	vim-airline/vim-airline-themes.git\
-	w0rp/ale.git
+	w0rp/ale.git\
+	tpope/vim-surround.git\
+	tpope/vim-abolish.git\
+	tpope/vim-dispatch
 
-PACK_OPT	= #\
+PACK_OPT	=
 #	bling/vim-bufferline.git\
 #	ryanoasis/vim-devicons.git\
 #	airblade/vim-gitgutter.git\
