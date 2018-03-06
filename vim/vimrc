@@ -51,25 +51,10 @@ filetype indent on
 set encoding=utf8
 set fileformats=unix,dos,mac
 
-augroup Perl
-	autocmd!
-	autocmd BufNewFile,BufRead {*.pl,*.pm,*.t} setlocal foldexpr=getline(v:lnum)=~'^=cut'?'<1':getline(v:lnum)=~'^='?'1':'=' |
-	autocmd BufNewFile,BufRead {*.pl,*.pm,*.t} setlocal foldmethod=expr
-	autocmd BufNewFile,BufRead {*.pl,*.pm,*.t} setlocal makeprg=perl\ -c\ -MVi::QuickFix\ %
-	autocmd BufNewFile,BufRead {*.pl,*.pm,*.t} setlocal errorformat+=%m\ at\ %f\ line\ %l.
-	autocmd BufNewFile,BufRead {*.pl,*.pm,*.t} setlocal errorformat+=%m\ at\ %f\ line\ %l
-	command PerlCheck !perl -c %
-augroup END
-
 augroup C
 	autocmd!
 	autocmd BufNewFile,BufRead {*.c,*.h,*.cpp} setlocal cindent
 	autocmd BufNewFile,BufRead {*.c,*.h,*.cpp} setlocal tabstop=8 softtabstop=8 shiftwidth=8 noexpandtab
-augroup END
-
-augroup Python
-	autocmd!
-	autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 augroup END
 
 augroup Groff

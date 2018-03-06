@@ -18,6 +18,8 @@ PACK_OPT	= #\
 install:
 	test -e ~/.vimrc && mv ~/.vimrc ~/.vimrc.bk || true
 	install vimrc ~/.vimrc
+	mkdir -p ~/.vim/after/ftplugin
+	install after/* ~/.vim/after/ftplugin
 
 ##
 #	packages
