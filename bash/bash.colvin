@@ -17,8 +17,8 @@ case $OS in
 			;;
 esac
 
-## functions
-gitbranch() {
+## display git branch in prompt
+function gitbranch() {
 	br=$( git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/' )
 	if [ -n "$br" ];then
 		echo -e ":[ $br ]"
@@ -26,10 +26,12 @@ gitbranch() {
 }
 
 ## vars
-export EDITOR="vim"
+export EDITOR='vim'
+export VISUAL='vim'
 export PS1='\u@\h:[\w]$(gitbranch):\$ '
 export PS2='o '
 export NTFS3G='noauto,uid=1001,gid=1001,dmask=027,fmask=137'
+export MYSQL_PS1='(mysql) \u@\h:[\d]:% '
 
 ## aliases
 alias l="clear;ls -F $lscolor;echo"
@@ -40,3 +42,25 @@ alias c='clear'
 alias e='exit'
 alias tree='tree -AC'
 
+## virtualenv
+export VENV="/usr/local/venv"
+
+function venv() {
+	if [ ! -f $VENV/"$1"/bin/activate ];then
+		echo "venv: not a virtualenv: $VENV/$1"
+		return
+	fi
+	. $VENV/"$1"/bin/activate
+}
+
+function _venv() {
+	unset _venv_words
+	for i in $(cd $VENV && ls); do
+		_venv_words+="$i "
+	done
+	COMPREPLY+=( $( compgen -W "$_venv_words" "${COMP_WORDS[1]}" ) )
+}
+
+complete -F _venv venv
+
+# vim: ft=sh ts=8
