@@ -5,15 +5,18 @@ PACK_START	= \
 	vim-airline/vim-airline.git\
 	vim-airline/vim-airline-themes.git\
 	w0rp/ale.git\
-	tpope/vim-surround.git\
-	tpope/vim-abolish.git\
-	tpope/vim-dispatch
+	tpope/vim-fugitive\
+	tpope/vim-surround\
+	tpope/vim-abolish\
+	tpope/vim-unimpaired\
+	tpope/vim-db\
+  tpope/vim-dispatch
 
 PACK_OPT	=
-#	bling/vim-bufferline.git\
-#	ryanoasis/vim-devicons.git\
-#	airblade/vim-gitgutter.git\
-#	mbbill/undotree.git\
+#	bling/vim-bufferline.git
+#	ryanoasis/vim-devicons.git
+#	airblade/vim-gitgutter.git
+#	mbbill/undotree.git
 #	nathanaelkane/vim-indent-guides
 #	majutsushi/tagbar
 #	IrishPrime/WhiteWash.vim
