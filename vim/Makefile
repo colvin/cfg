@@ -9,10 +9,10 @@ PACK_START	= \
 	tpope/vim-surround\
 	tpope/vim-abolish\
 	tpope/vim-unimpaired\
-	tpope/vim-db
+	tpope/vim-db\
+  tpope/vim-dispatch
 
 PACK_OPT	=
-
 #	bling/vim-bufferline.git
 #	ryanoasis/vim-devicons.git
 #	airblade/vim-gitgutter.git
