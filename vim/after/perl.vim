@@ -3,3 +3,5 @@ setlocal foldmethod=expr
 setlocal makeprg=perl\ -c\ -MVi::QuickFix\ %
 setlocal errorformat+=%m\ at\ %f\ line\ %l.
 setlocal errorformat+=%m\ at\ %f\ line\ %l
+
+let g:ale_linters = {'perl': ['perl','perlcritic']}
