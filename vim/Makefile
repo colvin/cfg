@@ -10,7 +10,7 @@ PACK_START	= \
 	tpope/vim-abolish\
 	tpope/vim-unimpaired\
 	tpope/vim-db\
-  tpope/vim-dispatch
+	tpope/vim-dispatch
 
 PACK_OPT	=
 #	bling/vim-bufferline.git
@@ -25,7 +25,9 @@ install:
 	test -e ~/.vimrc && mv ~/.vimrc ~/.vimrc.bk || true
 	install vimrc ~/.vimrc
 	mkdir -p ~/.vim/after/ftplugin
+	mkdir -p ~/.vim/template
 	install after/* ~/.vim/after/ftplugin
+	install template/* ~/.vim/template
 
 ##
 #	packages
