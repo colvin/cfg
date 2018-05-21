@@ -22,9 +22,8 @@ exit(0);
 __END__
 
 =head1 NAME
-
 =head1 SYNOPSIS
-
+=head1 DESCRIPTION
 =head1 OPTIONS
-
+=head1 SEE ALSO
 =cut
