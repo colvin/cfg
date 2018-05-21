@@ -10,7 +10,8 @@ PACK_START	= \
 	tpope/vim-abolish\
 	tpope/vim-unimpaired\
 	tpope/vim-db\
-	tpope/vim-dispatch
+	tpope/vim-dispatch\
+	tpope/vim-repeat
 
 PACK_OPT	=
 #	bling/vim-bufferline.git
