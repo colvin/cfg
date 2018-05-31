@@ -51,12 +51,6 @@ filetype indent on
 set encoding=utf8
 set fileformats=unix,dos,mac
 
-augroup C
-	autocmd!
-	autocmd BufNewFile,BufRead {*.c,*.h,*.cpp} setlocal cindent
-	autocmd BufNewFile,BufRead {*.c,*.h,*.cpp} setlocal tabstop=8 softtabstop=8 shiftwidth=8 noexpandtab
-augroup END
-
 augroup Groff
 	autocmd!
 	autocmd BufNewFile,BufRead *.groff,*.[1-9] setlocal filetype=groff
@@ -66,11 +60,6 @@ augroup SQL
 	autocmd!
 	autocmd BufNewFile,BufRead *.sql,*.mysql setlocal filetype=mysql
 	autocmd BufNewFile,BufRead *.pgsql setlocal filetype=pgsql
-augroup END
-
-augroup JSON
-	autocmd!
-	autocmd BufNewFile,BufRead *.json setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 augroup END
 
 colorscheme delek
