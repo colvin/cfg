@@ -29,7 +29,7 @@ install:
 	mkdir -p ~/.vim/template
 	install after/* ~/.vim/after/ftplugin
 	install template/* ~/.vim/template
-	install -vb pylintrc ~/.pylintrc
+	install -b pylintrc ~/.pylintrc
 
 ##
 #	packages
