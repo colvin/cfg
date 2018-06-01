@@ -63,4 +63,8 @@ function _venv() {
 
 complete -F _venv venv
 
+function title() {
+	echo -ne "\033]0;$1\007"
+}
+
 # vim: ft=sh ts=8
