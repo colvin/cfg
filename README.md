@@ -1,2 +1,2 @@
 # cfg
-Personal Configuration Items
+dotfiles and system setup
