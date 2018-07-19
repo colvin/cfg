@@ -64,7 +64,24 @@ function _venv() {
 complete -F _venv venv
 
 function title() {
-	echo -ne "\033]0;$1\007"
+	if [ -n "$DISPLAY" ]; then
+		## assume i3
+		i3-msg title_format "$1" >/dev/null
+	else
+		echo -ne "\033]0;$1\007"
+	fi
+}
+
+function title_parent() {
+	if [ -n "$DISPLAY" ]; then
+		## assume i3
+		i3-msg focus parent, title_format "$1", focus child >/dev/null
+	fi
+}
+
+function find_symbol() {
+	s="$1"
+	grep -r "$s" * | grep -v 'Binary file' | cut -d':' -f1 | sort -u
 }
 
 # vim: ft=sh ts=8
