@@ -63,6 +63,15 @@ alias unixtime='date "+%s"'
 alias isotime='date -u "+%Y-%m-%dT%H:%M:%SZ"'
 alias isolocaltime='date "+%Y-%m-%dT%H:%M:%S%z"'
 
+## try to determine JSON_FORMATTER
+##	json_reformat:	part of yajl
+##	json_xs:	part of perl JSON::XS
+if which -s json_reformat; then
+	JSON_FORMATTER='json_reformat'
+elif which -s json_xs; then
+	JSON_FORMATTER='json_xs'
+fi
+
 ## completions
 
 ## tmux
@@ -136,9 +145,9 @@ vultr() {
 
 	data=$( curl -s -H "API-Key: $VULTR_API_KEY" https://api.vultr.com/v1/$@ )
 
-	echo $data | grep '^{' &>/dev/null
-	if [ $? -eq 0 ];then
-		echo $data | json_reformat
+	## format json output, if it is json and we have a formatter defined
+	if echo $data | grep -q '^{' && [ -n "$JSON_FORMATTER" ]; then
+		echo $data | $JSON_FORMATTER
 	else
 		echo $data
 	fi
