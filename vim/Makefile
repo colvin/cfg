@@ -1,17 +1,18 @@
 PACKDIR		= ~/.vim/pack/bundle
 
 PACK_START	= \
+	IrishPrime/WhiteWash.vim\
 	ctrlpvim/ctrlp.vim.git\
-	vim-airline/vim-airline.git\
-	vim-airline/vim-airline-themes.git\
-	w0rp/ale.git\
-	tpope/vim-fugitive\
-	tpope/vim-surround\
 	tpope/vim-abolish\
-	tpope/vim-unimpaired\
 	tpope/vim-db\
 	tpope/vim-dispatch\
-	tpope/vim-repeat
+	tpope/vim-fugitive\
+	tpope/vim-repeat\
+	tpope/vim-surround\
+	tpope/vim-unimpaired\
+	vim-airline/vim-airline-themes.git\
+	vim-airline/vim-airline.git\
+	w0rp/ale.git
 
 PACK_OPT	=
 #	bling/vim-bufferline.git
@@ -20,7 +21,6 @@ PACK_OPT	=
 #	mbbill/undotree.git
 #	nathanaelkane/vim-indent-guides
 #	majutsushi/tagbar
-#	IrishPrime/WhiteWash.vim
 
 install:
 	test -e ~/.vimrc && mv ~/.vimrc ~/.vimrc.bk || true
