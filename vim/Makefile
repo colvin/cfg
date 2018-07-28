@@ -1,7 +1,7 @@
 PACKDIR		= ~/.vim/pack/bundle
 
 PACK_START	= \
-	IrishPrime/WhiteWash.vim\
+	IrishPrime/WhiteWash.vim.git\
 	ctrlpvim/ctrlp.vim.git\
 	tpope/vim-abolish\
 	tpope/vim-db\
