@@ -1,6 +1,11 @@
+# vim: ft=gitconfig
 [user]
 	name = colvin
 	email = 39858617+colvin@users.noreply.github.com
+[color]
+	diff = auto
+	status = auto
+	branch = auto
 [push]
 	default = current
 [alias]
