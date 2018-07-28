@@ -103,3 +103,5 @@ let g:ale_lint_on_insert_leave = 1
 autocmd BufNewFile *.pm -1r ~/.vim/template/perl.pm
 autocmd BufNewFile *.pl -1r ~/.vim/template/perl.pl
 autocmd BufNewFile *.t  -1r ~/.vim/template/perl.t
+
+set path+=**
