@@ -95,4 +95,10 @@ function find_symbol() {
 	grep -r "$s" * | grep -v 'Binary file' | cut -d':' -f1 | sort -u
 }
 
+## load local global config if exists
+test -n "$BASH_SOURCE" && test -f "$BASH_SOURCE.local" && . $BASH_SOURCE.local
+
+## load local user config if exists
+test -e $HOME/.bashrc.local && . $HOME/.bashrc.local
+
 # vim: ft=sh ts=8
