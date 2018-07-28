@@ -1,19 +1,23 @@
-colvinrc=1
+# vim: ft=sh ts=8
 
 if [ "$UID" -ne 0 ] && [ -z "$SSH_AGENT_PID" ] && [ -z "$SSH_CLIENT" ];then
 	echo "[bashrc]: ssh-agent"
 	ssh-agent $SHELL
 fi
 
+_ls='ls'
+_tree='tree'
+
 OS=$(uname -s)
 case $OS in
 	FreeBSD)	lscolor='-G'
+			alias sizer='du -h -d 1 .'
 			;;
 	Linux)		lscolor='--color=auto'
 			;;
-	OpenBSD)	alias ls='colorls'
+	OpenBSD)	_ls='colorls'
 			lscolor="-G"
-			alias tree='colortree'
+			_tree='colortree'
 			;;
 esac
 
@@ -28,21 +32,44 @@ function gitbranch() {
 ## vars
 export EDITOR='vim'
 export VISUAL='vim'
+export PAGER='less -R'
 export PS1='\u@\h:[\w]$(gitbranch):\$ '
-export PS2='o '
-export NTFS3G='noauto,uid=1001,gid=1001,dmask=027,fmask=137'
+export PS2='→  '
+export LANG='en_US.UTF-8'
 export MYSQL_PS1='(mysql) \u@\h:[ \d ]:% '
 
+export FFMPEG_PSP='-profile:v main -level 3 -x264opts ref=3:b-pyramid=none:weightp=1'	## ffmpeg encoding for psp
+export NTFS3G='noauto,uid=1001,gid=1001,dmask=027,fmask=137'	## mount options for NTFS using ntfs-3g
+
+export MDV_THEME='618.9403'	## color theme for 'mdv' console markdown renderer
+
+## ssh vars
+export UKHFDN='-o UserKnownHostsFile=/dev/null'
+export SHKC='-o StrictHostKeyChecking=no'
+export PAPK='-o PreferredAuthentications=publickey'
+export PAPW='-o PreferredAuthentications=password'
+
 ## aliases
-alias l="clear;ls -F $lscolor;echo"
-alias ll="clear;ls -AF $lscolor;echo"
-alias gls="clear;ls -lhF $lscolor;echo"
-alias ghls="clear;ls -AlhF $lscolor;echo"
+alias l="clear;$_ls -F $lscolor;echo"
+alias ll="clear;$_ls -AF $lscolor;echo"
+alias gls="clear;$_ls -lhF $lscolor;echo"
+alias ghls="clear;$_ls -AlhF $lscolor;echo"
+alias rls="$_ls -lhF $lscolor"
 alias c='clear'
 alias e='exit'
-alias tree='tree -AC'
+alias tree="$_tree -ACF"
+alias term_reset='reset;stty erase '
+alias unixtime='date "+%s"'
+alias isotime='date -u "+%Y-%m-%dT%H:%M:%SZ"'
+alias isolocaltime='date "+%Y-%m-%dT%H:%M:%S%z"'
+
+## completions
+
+## tmux
+test -f /usr/local/share/examples/tmux/bash_completion_tmux.sh && . /usr/local/share/examples/tmux/bash_completion_tmux.sh
 
 ## virtualenv
+
 export VENV="/usr/local/venv"
 
 function venv() {
@@ -74,6 +101,8 @@ function _venv() {
 
 complete -F _venv venv
 
+## terminal titles (i3)
+
 function title() {
 	if [ -n "$DISPLAY" ]; then
 		## assume i3
@@ -90,15 +119,35 @@ function title_parent() {
 	fi
 }
 
+## other functions
+
+## displaying unique files containing pattern
 function find_symbol() {
 	s="$1"
 	grep -r "$s" * | grep -v 'Binary file' | cut -d':' -f1 | sort -u
 }
 
-## load local global config if exists
+## wrapper for Vultr API calls using curl
+vultr() {
+	if [ -z "$VULTR_API_KEY" ]; then
+		echo "VULTR_API_KEY not set"
+		return
+	fi
+
+	data=$( curl -s -H "API-Key: $VULTR_API_KEY" https://api.vultr.com/v1/$@ )
+
+	echo $data | grep '^{' &>/dev/null
+	if [ $? -eq 0 ];then
+		echo $data | json_reformat
+	else
+		echo $data
+	fi
+}
+
+## load local global config if exists ( $ETC/bash.colvin.local )
 test -n "$BASH_SOURCE" && test -f "$BASH_SOURCE.local" && . $BASH_SOURCE.local
 
 ## load local user config if exists
 test -e $HOME/.bashrc.local && . $HOME/.bashrc.local
 
-# vim: ft=sh ts=8
+colvinrc="HELL YEAH"
