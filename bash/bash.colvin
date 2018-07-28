@@ -31,7 +31,7 @@ export VISUAL='vim'
 export PS1='\u@\h:[\w]$(gitbranch):\$ '
 export PS2='o '
 export NTFS3G='noauto,uid=1001,gid=1001,dmask=027,fmask=137'
-export MYSQL_PS1='(mysql) \u@\h:[\d]:% '
+export MYSQL_PS1='(mysql) \u@\h:[ \d ]:% '
 
 ## aliases
 alias l="clear;ls -F $lscolor;echo"
@@ -46,6 +46,17 @@ alias tree='tree -AC'
 export VENV="/usr/local/venv"
 
 function venv() {
+	if [ -z "$1" ]; then
+		if [ -d .venv ] && [ -f .venv/bin/activate ];then
+			. .venv/bin/activate
+			return
+		elif [ -f venv ];then
+			. venv
+			return
+		fi
+		echo "venv: no environment given, no .venv/bin/activate or venv"
+		return
+	fi
 	if [ ! -f $VENV/"$1"/bin/activate ];then
 		echo "venv: not a virtualenv: $VENV/$1"
 		return
