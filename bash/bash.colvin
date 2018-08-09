@@ -38,16 +38,16 @@ export PS2='→  '
 export LANG='en_US.UTF-8'
 export MYSQL_PS1='(mysql) \u@\h:[ \d ]:% '
 
-export FFMPEG_PSP='-profile:v main -level 3 -x264opts ref=3:b-pyramid=none:weightp=1'	## ffmpeg encoding for psp
-export NTFS3G='noauto,uid=1001,gid=1001,dmask=027,fmask=137'	## mount options for NTFS using ntfs-3g
+FFMPEG_PSP='-profile:v main -level 3 -x264opts ref=3:b-pyramid=none:weightp=1'	## ffmpeg encoding for psp
+NTFS3G='noauto,uid=1001,gid=1001,dmask=027,fmask=137'	## mount options for NTFS using ntfs-3g
 
-export MDV_THEME='618.9403'	## color theme for 'mdv' console markdown renderer
+MDV_THEME='618.9403'	## color theme for 'mdv' console markdown renderer
 
 ## ssh vars
-export UKHFDN='-o UserKnownHostsFile=/dev/null'
-export SHKC='-o StrictHostKeyChecking=no'
-export PAPK='-o PreferredAuthentications=publickey'
-export PAPW='-o PreferredAuthentications=password'
+UKHFDN='-o UserKnownHostsFile=/dev/null'
+SHKC='-o StrictHostKeyChecking=no'
+PAPK='-o PreferredAuthentications=publickey'
+PAPW='-o PreferredAuthentications=password'
 
 ## aliases
 alias l="clear;$_ls -F $lscolor;echo"
@@ -66,9 +66,9 @@ alias isolocaltime='date "+%Y-%m-%dT%H:%M:%S%z"'
 ## try to determine JSON_FORMATTER
 ##	json_reformat:	part of yajl
 ##	json_xs:	part of perl JSON::XS
-if which -s json_reformat; then
+if which json_reformat &>/dev/null; then
 	JSON_FORMATTER='json_reformat'
-elif which -s json_xs; then
+elif which json_xs &>/dev/null; then
 	JSON_FORMATTER='json_xs'
 fi
 
