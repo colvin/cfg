@@ -12,6 +12,7 @@
 	st = status
 	co = checkout
 	m = checkout master
+	d = checkout develop
 	nb = checkout -b
 	b = branch
 	bls = branch -avv
