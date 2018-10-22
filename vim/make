@@ -1,0 +1,67 @@
+#!/bin/sh
+VIMRC="$HOME/.vimrc"
+VIM_HOME="$HOME/.vim"
+PACK_DIR="$VIM_HOME/pack/bundle/start"
+FT_DIR="$VIM_HOME/after/ftplugin"
+TEMPLATE_DIR="$VIM_HOME/template"
+
+set -e
+
+function _install() {
+	set -x
+	mkdir -p $PACK_DIR
+	mkdir -p $FT_DIR
+	mkdir -p $TEMPLATE_DIR
+	install -b vimrc $VIMRC
+	install after/* $FT_DIR/
+	install template/* $TEMPLATE_DIR/
+	install -b pylintrc $HOME/.pylintrc
+	set +x
+}
+
+function _pack() {
+	for pkg in \
+		IrishPrime/WhiteWash.vim.git \
+		ctrlpvim/ctrlp.vim.git \
+		ryanoasis/vim-devicons.git \
+		tpope/vim-abolish \
+		tpope/vim-db \
+		tpope/vim-dispatch \
+		tpope/vim-fugitive \
+		tpope/vim-repeat \
+		tpope/vim-surround \
+		tpope/vim-unimpaired \
+		vim-airline/vim-airline-themes.git \
+		vim-airline/vim-airline.git \
+		w0rp/ale.git
+	do
+		echo "----> $pkg"
+		clean_name=`basename $pkg .git`
+		if [ -d $PACK_DIR/$clean_name ]
+		then
+			( cd $PACK_DIR/$clean_name && git pull )
+		else
+			( cd $PACK_DIR && git clone https://github.com/$pkg )
+		fi
+	done
+}
+
+while [ "$#" -gt 0 ]
+do
+	case "$1" in
+		""|core)	_install
+				;;
+		pack)		_pack
+				;;
+		*)		echo "bad target: $1"
+				exit 1
+				;;
+	esac
+	shift
+done
+
+# bling/vim-bufferline.git
+# airblade/vim-gitgutter.git
+# mbbill/undotree.git
+# nathanaelkane/vim-indent-guides
+# majutsushi/tagbar
