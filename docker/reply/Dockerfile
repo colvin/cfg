@@ -24,7 +24,6 @@ RUN cpanm --notest\
 		Term::ReadKey\
 		Term::ReadLine::Gnu\
 		Term::ReadLine::Perl\
-	&& rm -rf ~/.cpanm \
-	&& reply
+	&& rm -rf ~/.cpanm
 
 CMD [ "reply" ]
