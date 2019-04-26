@@ -2,5 +2,12 @@
 
 disable=
     missing-docstring,
+    no-self-use,
     too-few-public-methods,
-    invalid-name
+    too-many-public-methods,
+    too-many-branches,
+    too-many-statements,
+    too-many-instance-attributes,
+    too-many-return-statements,
+    bad-continuation,
+    line-too-long
