@@ -1,4 +1,4 @@
-CFGDIR		?= $(HOME)/.i3
+CFGDIR		?= $(HOME)/.config/i3
 TERMINAL	?= i3-sensible-terminal
 OS		!= uname -s
 PROFILE		?= $(OS)
@@ -30,8 +30,8 @@ openbsd:
 Linux: archlinux
 arch: archlinux
 archlinux:
-	sed -i '' -e 's/xxxxxx/1793d1/' $(CFGDIR)/config
-	sed -i '' -e 's/yyyyyy/1793d1/' $(CFGDIR)/config
+	sed -i -e 's/xxxxxx/1793d1/' $(CFGDIR)/config
+	sed -i -e 's/yyyyyy/1793d1/' $(CFGDIR)/config
 
 opensuse: suse
 suse:
