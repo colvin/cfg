@@ -2,6 +2,8 @@
 [user]
 	name = colvin
 	email = 39858617+colvin@users.noreply.github.com
+[core]
+	excludesfile = /home/colvin/.gitignore
 [color]
 	diff = auto
 	status = auto
@@ -16,10 +18,14 @@
 	nb = checkout -b
 	b = branch
 	bls = branch -avv
-	l = log --oneline --decorate
+	l = log --oneline --decorate -n 10
+	ll = log --oneline --decorate
 	gl = log --graph --decorate
 	gls = log --all --graph --decorate
 	adog = log --all --decorate --oneline --graph
 	dc = diff --cached
-	lasttag = describe --tags --abbrev=0
+	last-tag = describe --tags --abbrev=0
 	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
+	unstage = reset HEAD
+	shove = push
+	tug = pull

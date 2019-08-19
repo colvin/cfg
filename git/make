@@ -1,2 +1,3 @@
 #!/bin/sh
 install -b gitconfig $HOME/.gitconfig
+install -b gitignore $HOME/.gitignore
