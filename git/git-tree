@@ -1,0 +1,2 @@
+#!/bin/sh
+tree -aACF -I .git $@
