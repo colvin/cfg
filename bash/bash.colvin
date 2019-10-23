@@ -153,6 +153,56 @@ vultr() {
 	fi
 }
 
+## Switch between go versions. Download the binary distribution for a given go
+## go version, unpack it, and move the top-level `go` directory to /opt/goX.Y.Z.
+## For example:
+##
+##	cd /tmp
+##	curl -OL https://dl.google.com/go/go1.12.12.linux-amd64.tar.gz
+##	tar xzf go1.12.12.linux-amd64.tar.gz
+##	mv go /opt/go1.12.12
+##	sudo chown -R root:wheel /opt/go1.12.12
+function goenv() {
+	: ${GOENV_HOME:="/opt"}
+	local gover="$1"
+	if [ -z "$gover" ]
+	then
+		echo " *** gimme a go version, ya dingus"
+		return 1
+	fi
+	if [ "$gover" = "system" ]
+	then
+		if [ -z "$GOENV_OLD_PATH" ]
+		then
+			echo " *** can't roll back, didn't remember the old path or still using system go!"
+			return 1
+		fi
+		unset GOROOT
+		export PATH=$GOENV_OLD_PATH
+		unset GOENV_OLD_PATH
+		return 0
+	fi
+	if [ ! -d "/$GOENV_HOME/go$gover" ]
+	then
+		echo " *** no such go version installed: /$GOENV_HOME/go$gover"
+		return 1
+	fi
+	export GOENV_OLD_PATH=$PATH
+	export GOROOT=/"$GOENV_HOME"/go$gover
+	export PATH=$GOROOT/bin:$PATH
+}
+
+function _goenv_comp() {
+	local _goenv_words
+	for ver in $( cd /opt && ls -d go?.??.* | sed 's/go//g' )
+	do
+		_goenv_words+="$ver "
+	done
+	COMPREPLY+=( $( compgen -W "$_goenv_words" "${COMP_WORDS[1]}" ) )
+}
+
+complete -F _goenv_comp goenv
+
 ## load local global config if exists ( $ETC/bash.colvin.local )
 test -n "$BASH_SOURCE" && test -f "$BASH_SOURCE.local" && . $BASH_SOURCE.local
 
