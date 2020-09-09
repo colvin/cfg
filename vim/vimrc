@@ -62,7 +62,6 @@ augroup SQL
 	autocmd BufNewFile,BufRead *.pgsql setlocal filetype=pgsql
 augroup END
 
-colorscheme delek
 set background=dark
 set t_Co=256
 
@@ -82,6 +81,7 @@ nnoremap <leader>l :set list!<cr>
 nnoremap <leader>p :setlocal paste!<cr>
 nnoremap <leader>4 :setlocal tabstop=4 softtabstop=4 shiftwidth=4<cr>
 nnoremap <leader>8 :setlocal tabstop=8 softtabstop=8 shiftwidth=8<cr>
+nnoremap <leader>f :FZF<cr>
 
 function! HasPaste()
 	if &paste
@@ -92,8 +92,15 @@ endfunction
 
 " https://github.com/vim-airline/vim-airline
 " https://github.com/vim-airline/vim-airline-themes
-let g:airline_theme = 'molokai'
 let g:airline#extensions#tabline#enabled = 1
+
+" original theme
+" colorscheme delek
+" let g:airline_theme = 'molokai'
+
+" new theme
+let g:airline_theme = 'minimalist'
+colorscheme sonokai
 
 " https://github.com/w0rp/ale
 let g:ale_sign_column_always = 1
