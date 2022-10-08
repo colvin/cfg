@@ -1,0 +1,17 @@
+\set QUIET 1
+\set PROMPT1 '[ psql ] %n@%M:[ %/ ]:%# '
+\set PROMPT2 ' →  '
+\set COMP_KEYWORD_CASE upper
+\x auto
+\timing
+\set ON_ERROR_STOP on
+\set ON_ERROR_ROLLBACK interactive
+\set HISTFILE ~/.psql_history-:DBNAME
+\pset linestyle 'unicode'
+\pset unicode_border_linestyle single
+\pset unicode_column_linestyle single
+\pset unicode_header_linestyle double
+\pset border 2
+set intervalstyle to 'postgres_verbose';
+\setenv EDITOR 'vim'
+\set QUIET 0
