@@ -1,0 +1,15 @@
+# volume up
+"pactl set-sink-volume @DEFAULT_SINK@ +5%"
+	XF86AudioRaiseVolume
+
+# volume down
+"pactl set-sink-volume @DEFAULT_SINK@ -5%"
+	XF86AudioLowerVolume
+
+# mute speakers
+"pactl set-sink-mute @DEFAULT_SINK@ toggle"
+	XF86AudioMute
+
+# mute microphone
+"pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+	XF86AudioMicMute
