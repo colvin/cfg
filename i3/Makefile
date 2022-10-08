@@ -2,41 +2,35 @@ CFGDIR		?= $(HOME)/.config/i3
 TERMINAL	?= i3-sensible-terminal
 OS		!= uname -s
 PROFILE		?= $(OS)
+FONT		?= Droid Sans Mono
 
-all: $(CFGDIR) bkup install term $(PROFILE)
+# In FreeBSD, 'sed -i' requires an argument.
+ifeq ($(PROFILE),FreeBSD)
+SED_MINUS_I = -i ''
+else
+SED_MINUS_I = -i
+endif
 
-install:
-	install config $(CFGDIR)/config
+ifeq ($(PROFILE),FreeBSD)
+COLOR ?= c02000
+else ifeq ($(PROFILE),OpenBSD)
+COLOR ?= cc9900
+else ifeq ($(PROFILE),OpenSuSE)
+COLOR ?= 669900
+else
+# Default is Arch Linux
+COLOR ?= 1793d1
+endif
+
+all: $(CFGDIR) install
 
 $(CFGDIR):
 	mkdir -p $(CFGDIR)
 
-bkup:
-	if [ -f $(CFGDIR)/config ]; then mv $(CFGDIR)/config $(CFGDIR)/_config; fi
-
-term:
-	sed -i -e 's/TERMINAL/$(TERMINAL)/' $(CFGDIR)/config
-
-FreeBSD: freebsd
-freebsd:
-	sed -i '' -e 's/xxxxxx/c02000/' $(CFGDIR)/config
-	sed -i '' -e 's/yyyyyy/c02000/' $(CFGDIR)/config
-
-OpenBSD: openbsd
-openbsd:
-	sed -i -e 's/xxxxxx/cc9900/' $(CFGDIR)/config
-	sed -i -e 's/yyyyyy/cc9900/' $(CFGDIR)/config
-
-Linux: archlinux
-arch: archlinux
-archlinux:
-	sed -i -e 's/xxxxxx/1793d1/' $(CFGDIR)/config
-	sed -i -e 's/yyyyyy/1793d1/' $(CFGDIR)/config
-
-opensuse: suse
-suse:
-	sed -i '' -e 's/xxxxxx/669900/' $(CFGDIR)/config
-	sed -i '' -e 's/yyyyyy/669900/' $(CFGDIR)/config
-
-.PHONY: install bkup term
-
+install:
+	install -b config $(CFGDIR)/config
+	sed $(SED_MINUS_I) \
+		-e 's/TERMINAL/$(TERMINAL)/g' \
+		-e 's/FONT/$(FONT)/g' \
+		-e 's/COLOR/$(COLOR)/g' \
+		$(CFGDIR)/config

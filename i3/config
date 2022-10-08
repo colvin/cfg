@@ -6,13 +6,14 @@ font pango:monospace 8
 floating_modifier $mod
 
 bindsym $mod+Return exec TERMINAL
+bindsym $mod+Shift+Return exec xterm
 
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exit
 
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec dmenu_run -sf black -sb 'COLOR' -fn 'FONT-8' -p '---->'
 
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -89,13 +90,13 @@ bindsym $mod+r mode "resize"
 
 bar {
 	colors {
-		focused_workspace #000000 #yyyyyy #000000
+		focused_workspace #000000 #COLOR #000000
 	}
         status_command i3status
 }
 
 #class				border	backgr	text	indicator
-client.focused			#000000	#xxxxxx	#ffffff	#ffffff
+client.focused			#000000	#COLOR	#ffffff	#ffffff
 client.focused_inactive		#505050	#000000	#ffffff	#ffffff
 client.unfocused		#707070	#404040	#ffffff	#ffffff
 client.urgent			#000000	#000000	#ffffff	#ffffff
