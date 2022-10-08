@@ -78,6 +78,10 @@ if [ -z "$PATH_CONFIG_GO" ] && [ -d $HOME/go/bin ]; then
 	export PATH_CONFIG_GO=1
 fi
 
+# Go
+alias gotest='go test -v --coverprofile coverage.out'
+alias gocover='go tool cover -html coverage.out'
+
 # Binaries installed by cargo
 if [ -z "$PATH_CONFIG_CARGO" ] && [ -d $HOME/.cargo/bin ]; then
 	export PATH=$HOME/.cargo/bin:$PATH
