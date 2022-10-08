@@ -14,6 +14,7 @@
 	st = status
 	co = checkout
 	m = checkout master
+	main = checkout main
 	d = checkout develop
 	nb = checkout -b
 	b = branch
@@ -23,6 +24,7 @@
 	gl = log --graph --decorate
 	gls = log --all --graph --decorate
 	adog = log --all --decorate --oneline --graph
+	grok = show --stat --date=iso-strict
 	dc = diff --cached
 	last-tag = describe --tags --abbrev=0
 	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
