@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+scrot $@ $HOME/pics/screenshots/'%Y-%m-%d:%H:%M:%S%z.png'
