@@ -1,1 +1,5 @@
+# Correct big, clunky window dressing. Lower makes it smaller,
+# higher makes it larger. Set to 100 on laptop, 80 on desktop.
+xrandr --dpi 100
+
 exec i3

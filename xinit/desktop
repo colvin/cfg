@@ -1,0 +1,26 @@
+# Desktop notifications
+# Depends on: dunst
+dunst &
+
+# pulseaudio system tray
+# Depends on: pulseaudio, pasystray, pavucontrol
+pasystray &
+
+# Bluetooth system tray
+# Depends on: blueman, bluez, pulseaudio-bluetooth
+# Depends on services: bluetooth
+blueman-applet &
+
+# Keyring
+# Depends on: gnome-keyring
+gnome-keyring-daemon --start --components=secrets
+
+# Multimedia keys. Be sure to see xbindkeysrc for the definitions that need
+# to be in place in ~/.xbindkeysrc.
+# Depends on: xbindkeys, pulseaudio
+xbindkeys
+
+# Allow zapping X using Ctrl+Alt+Backspace.
+# Depends on: xorg-setxkbmap
+setxkbmap -option terminate:ctrl_alt_bksp
+

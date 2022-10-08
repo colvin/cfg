@@ -1,2 +1,4 @@
+# Disable screensavers and turning off the screen
 xset s off
 xset -dpms
+

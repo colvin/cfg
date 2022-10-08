@@ -1,3 +1,6 @@
+# Desktop background
+# Depends on: feh
 if [ -e ~/.fehbg ];then
 	sh ~/.fehbg
 fi
+
