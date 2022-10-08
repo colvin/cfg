@@ -1,0 +1,23 @@
+# Colors
+archlinux: 1793d1
+freebsd: c02000
+openbsd: cc9900
+suse: 669900
+risc: ff7700
+
+# Install steam on arch
+- Enable the multilib repo in pacman.conf
+- Install steam, ttf-liberation, lib32-fontconfig
+- Without the fonts it'll look weird
+
+# Set up screen lock using Win+l in i3:
+bindsym Mod4+l exec locky
+
+# ntfs-3g flags
+noauto,uid=1001,gid=1001,dmask=027,fmask=137
+
+# ffmpeg video conversion for psp
+-profile:v main -level 3 -x264opts ref=3:b-pyramid=none:weightp=1
+
+# mdv markdown viewer theme
+618.9403
