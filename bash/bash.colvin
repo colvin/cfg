@@ -7,6 +7,8 @@ fi
 
 _ls='ls'
 _tree='tree'
+_fzf_prefix='/usr/share/fzf'
+_fzf_color="1793d1"
 
 OS=$(uname -s)
 case $OS in
@@ -14,6 +16,7 @@ case $OS in
 			alias sizer='du -h -d 1 .'
 			;;
 	Linux)		lscolor='--color=auto'
+			alias sizer='du -h --max-depth 1 . | sort -h'
 			;;
 	OpenBSD)	_ls='colorls'
 			lscolor="-G"
@@ -21,7 +24,8 @@ case $OS in
 			;;
 esac
 
-## display git branch in prompt
+# Display the git branch in prompt, if we're in a git repo. This is referenced
+# below in the PS1 definition.
 function gitbranch() {
 	br=$( git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/' )
 	if [ -n "$br" ];then
@@ -29,7 +33,7 @@ function gitbranch() {
 	fi
 }
 
-## vars
+# Variables
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less -R'
@@ -38,23 +42,28 @@ export PS2='→  '
 export LANG='en_US.UTF-8'
 export MYSQL_PS1='(mysql) \u@\h:[ \d ]:% '
 
-FFMPEG_PSP='-profile:v main -level 3 -x264opts ref=3:b-pyramid=none:weightp=1'	## ffmpeg encoding for psp
-NTFS3G='noauto,uid=1001,gid=1001,dmask=027,fmask=137'	## mount options for NTFS using ntfs-3g
+# History
+export HISTCONTROL=ignoredups
+shopt -s histappend
+shopt -s cmdhist
+export HISTIGNORE='ls:l:ll:gls:ghls:rls:lsz:lst:clear:c:exit:e'
+export HISTSIZE=1000000
 
-MDV_THEME='618.9403'	## color theme for 'mdv' console markdown renderer
+# fzf
+if [ -d "$_fzf_prefix" ]; then
+	. $_fzf_prefix/completion.bash
+	. $_fzf_prefix/key-bindings.bash
+	export FZF_DEFAULT_OPTS="--info inline --color 'fg:#cccccc,fg+:#$_fzf_color,bg:#202020,preview-bg:#131313,border:#$_fzf_color,preview-fg:#cccccc' --border=rounded --no-mouse"
+fi
 
-## ssh vars
-UKHFDN='-o UserKnownHostsFile=/dev/null'
-SHKC='-o StrictHostKeyChecking=no'
-PAPK='-o PreferredAuthentications=publickey'
-PAPW='-o PreferredAuthentications=password'
-
-## aliases
+# Aliases
 alias l="clear;$_ls -F $lscolor;echo"
 alias ll="clear;$_ls -AF $lscolor;echo"
 alias gls="clear;$_ls -lhF $lscolor;echo"
 alias ghls="clear;$_ls -AlhF $lscolor;echo"
 alias rls="$_ls -lhF $lscolor"
+alias lsz="$_ls -AlhFSr $lscolor"
+alias lst="$_ls -AlhFtr $lscolor"
 alias c='clear'
 alias e='exit'
 alias tree="$_tree -ACF"
@@ -63,150 +72,37 @@ alias unixtime='date "+%s"'
 alias isotime='date -u "+%Y-%m-%dT%H:%M:%SZ"'
 alias isolocaltime='date "+%Y-%m-%dT%H:%M:%S%z"'
 
-## try to determine JSON_FORMATTER
-##	json_reformat:	part of yajl
-##	json_xs:	part of perl JSON::XS
-if which json_reformat &>/dev/null; then
-	JSON_FORMATTER='json_reformat'
-elif which json_xs &>/dev/null; then
-	JSON_FORMATTER='json_xs'
+# Binaries installed by go
+if [ -z "$PATH_CONFIG_GO" ] && [ -d $HOME/go/bin ]; then
+	export PATH=$HOME/go/bin:$PATH
+	export PATH_CONFIG_GO=1
 fi
 
-## completions
+# Binaries installed by cargo
+if [ -z "$PATH_CONFIG_CARGO" ] && [ -d $HOME/.cargo/bin ]; then
+	export PATH=$HOME/.cargo/bin:$PATH
+	export PATH_CONFIG_CARGO=1
+fi
 
-## tmux
-test -f /usr/local/share/examples/tmux/bash_completion_tmux.sh && . /usr/local/share/examples/tmux/bash_completion_tmux.sh
+# User's home directory bin
+if [ -z "$PATH_CONFIG_HOME" ] && [ -d $HOME/bin ]; then
+	export PATH=$HOME/bin:$PATH
+	export PATH_CONFIG_HOME=1
+fi
 
-## virtualenv
+# scrrr
+if [ -f /usr/local/share/srcrr/srcrr.bash ]; then
+	. /usr/local/share/srcrr/srcrr.bash
+fi
 
-export VENV="/usr/local/venv"
+# Load local global config if exists ( $ETC/bash.colvin.local )
+if [ -n "$BASH_SOURCE" ] && [ -f "$BASH_SOURCE.local" ]; then
+	. $BASH_SOURCE.local
+fi
 
-function venv() {
-	if [ -z "$1" ]; then
-		if [ -d .venv ] && [ -f .venv/bin/activate ];then
-			. .venv/bin/activate
-			return
-		elif [ -f venv ];then
-			. venv
-			return
-		fi
-		echo "venv: no environment given, no .venv/bin/activate or venv"
-		return
-	fi
-	if [ ! -f $VENV/"$1"/bin/activate ];then
-		echo "venv: not a virtualenv: $VENV/$1"
-		return
-	fi
-	. $VENV/"$1"/bin/activate
-}
-
-function _venv() {
-	unset _venv_words
-	for i in $(cd $VENV && ls); do
-		_venv_words+="$i "
-	done
-	COMPREPLY+=( $( compgen -W "$_venv_words" "${COMP_WORDS[1]}" ) )
-}
-
-complete -F _venv venv
-
-## terminal titles (i3)
-
-function title() {
-	if [ -n "$DISPLAY" ]; then
-		## assume i3
-		i3-msg title_format "$1" >/dev/null
-	else
-		echo -ne "\033]0;$1\007"
-	fi
-}
-
-function title_parent() {
-	if [ -n "$DISPLAY" ]; then
-		## assume i3
-		i3-msg focus parent, title_format "$1", focus child >/dev/null
-	fi
-}
-
-## other functions
-
-## displaying unique files containing pattern
-function find_symbol() {
-	s="$1"
-	grep -r "$s" * | grep -v 'Binary file' | cut -d':' -f1 | sort -u
-}
-
-## wrapper for Vultr API calls using curl
-vultr() {
-	if [ -z "$VULTR_API_KEY" ]; then
-		echo "VULTR_API_KEY not set"
-		return
-	fi
-
-	data=$( curl -s -H "API-Key: $VULTR_API_KEY" https://api.vultr.com/v1/$@ )
-
-	## format json output, if it is json and we have a formatter defined
-	if echo $data | grep -q '^{' && [ -n "$JSON_FORMATTER" ]; then
-		echo $data | $JSON_FORMATTER
-	else
-		echo $data
-	fi
-}
-
-## Switch between go versions. Download the binary distribution for a given go
-## go version, unpack it, and move the top-level `go` directory to /opt/goX.Y.Z.
-## For example:
-##
-##	cd /tmp
-##	curl -OL https://dl.google.com/go/go1.12.12.linux-amd64.tar.gz
-##	tar xzf go1.12.12.linux-amd64.tar.gz
-##	mv go /opt/go1.12.12
-##	sudo chown -R root:wheel /opt/go1.12.12
-function goenv() {
-	: ${GOENV_HOME:="/opt"}
-	local gover="$1"
-	if [ -z "$gover" ]
-	then
-		echo " *** gimme a go version, ya dingus"
-		return 1
-	fi
-	if [ "$gover" = "system" ]
-	then
-		if [ -z "$GOENV_OLD_PATH" ]
-		then
-			echo " *** can't roll back, didn't remember the old path or still using system go!"
-			return 1
-		fi
-		unset GOROOT
-		export PATH=$GOENV_OLD_PATH
-		unset GOENV_OLD_PATH
-		return 0
-	fi
-	if [ ! -d "/$GOENV_HOME/go$gover" ]
-	then
-		echo " *** no such go version installed: /$GOENV_HOME/go$gover"
-		return 1
-	fi
-	export GOENV_OLD_PATH=$PATH
-	export GOROOT=/"$GOENV_HOME"/go$gover
-	export PATH=$GOROOT/bin:$PATH
-}
-
-function _goenv_comp() {
-	local _goenv_words
-	for ver in $( cd /opt && ls -d go?.??.* | sed 's/go//g' )
-	do
-		_goenv_words+="$ver "
-	done
-	COMPREPLY+=( $( compgen -W "$_goenv_words" "${COMP_WORDS[1]}" ) )
-}
-
-complete -F _goenv_comp goenv
-
-## load local global config if exists ( $ETC/bash.colvin.local )
-test -n "$BASH_SOURCE" && test -f "$BASH_SOURCE.local" && . $BASH_SOURCE.local
-
-## load local user config if exists
-test -e $HOME/.bashrc.local && . $HOME/.bashrc.local
+# Load local user config if exists
+if [ -e $HOME/.bashrc.local ]; then
+	. $HOME/.bashrc.local
+fi
 
 colvinrc="HELL YEAH"

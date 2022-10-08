@@ -1,0 +1,5 @@
+# All we need to do is load /etc/bash.colvin. Any local configuration should
+# go in ~/.bashrc.local, which is automatically loaded if it exists.
+if [ -z "$colvinrc" ]; then
+	. /etc/bash.colvin
+fi
