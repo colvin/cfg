@@ -106,6 +106,10 @@ colorscheme sonokai
 let g:ale_sign_column_always = 1
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
+nnoremap <silent> <C-k> <Plug>(ale_previous_wrap)
+nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
+nnoremap <silent> <C-l> <Plug>(ale_go_to_definition)
+nnoremap <silent> <C-p> <Plug>(ale_find_references)
 
 " powerline
 let g:powerline_pycmd="py3"
