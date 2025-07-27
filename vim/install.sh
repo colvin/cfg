@@ -28,21 +28,18 @@ function _install() {
 
 function _pack() {
 	for pkg in \
-		IrishPrime/WhiteWash.vim.git \
+		fatih/vim-go.git \
+		jparise/vim-graphql \
+		leafgarland/typescript-vim \
+		pangloss/vim-javascript \
+		rust-lang/rust.vim \
 		ryanoasis/vim-devicons.git \
-		tpope/vim-abolish \
-		tpope/vim-db \
-		tpope/vim-dispatch \
-		tpope/vim-fugitive \
+		sainnhe/sonokai \
 		tpope/vim-repeat \
 		tpope/vim-surround \
-		tpope/vim-unimpaired \
 		vim-airline/vim-airline-themes.git \
 		vim-airline/vim-airline.git \
-		fatih/vim-go.git \
-		w0rp/ale.git \
-		rust-lang/rust.vim \
-		sainnhe/sonokai
+		w0rp/ale.git
 	do
 		echo "----> $pkg"
 		clean_name=`basename $pkg .git`

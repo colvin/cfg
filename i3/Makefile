@@ -32,5 +32,5 @@ install:
 	sed $(SED_MINUS_I) \
 		-e 's/TERMINAL/$(TERMINAL)/g' \
 		-e 's/FONT/$(FONT)/g' \
-		-e 's/COLOR/$(COLOR)/g' \
+		-e 's/COLOR/#$(COLOR)/g' \
 		$(CFGDIR)/config

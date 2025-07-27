@@ -8,8 +8,12 @@
 	diff = auto
 	status = auto
 	branch = auto
+[init]
+	defaultBranch = main
 [push]
 	default = current
+[pull]
+	rebase = true
 [alias]
 	st = status
 	co = checkout
@@ -28,8 +32,6 @@
 	dc = diff --cached
 	last-tag = describe --tags --abbrev=0
 	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
-	ignored = ls-files --ignored --others --exclude-standard
-	ignored-pretty = "!gitignored() { echo ; git ls-files --ignored --others --exclude-standard | awk '{ printf(\"\\t%s\\n\", $0) }' ; echo ;}; gitignored"
 	unstage = reset HEAD
-	shove = push
-	tug = pull
+	rename-branch = branch -m
+	rb = branch -m

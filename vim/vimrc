@@ -119,3 +119,9 @@ autocmd BufNewFile *.pl -1r ~/.vim/template/perl.pl
 autocmd BufNewFile *.t  -1r ~/.vim/template/perl.t
 
 set path+=**
+
+" Fix garbage characters appearing on screen when loading a file.
+set t_RV=
+
+" Default, usually overwritten by filetype-based configs
+set textwidth=100
