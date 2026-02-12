@@ -1,0 +1,13 @@
+editorconfig/editorconfig-vim
+fatih/vim-go
+jparise/vim-graphql
+leafgarland/typescript-vim
+pangloss/vim-javascript
+rust-lang/rust.vim
+ryanoasis/vim-devicons
+sainnhe/sonokai
+tpope/vim-repeat
+tpope/vim-surround
+vim-airline/vim-airline-themes
+vim-airline/vim-airline
+dense-analysis/ale

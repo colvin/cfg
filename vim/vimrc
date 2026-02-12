@@ -51,17 +51,6 @@ filetype indent on
 set encoding=utf8
 set fileformats=unix,dos,mac
 
-augroup Groff
-	autocmd!
-	autocmd BufNewFile,BufRead *.groff,*.[1-9] setlocal filetype=groff
-augroup END
-
-augroup SQL
-	autocmd!
-	autocmd BufNewFile,BufRead *.sql,*.mysql setlocal filetype=mysql
-	autocmd BufNewFile,BufRead *.pgsql setlocal filetype=pgsql
-augroup END
-
 set background=dark
 set t_Co=256
 
@@ -75,12 +64,7 @@ match ExtraWhitespace /\s\+$/
 highlight Folded ctermbg=black ctermfg=grey
 
 let mapleader = "-"
-
-nnoremap <leader>c :noh<cr>
-nnoremap <leader>l :set list!<cr>
 nnoremap <leader>p :setlocal paste!<cr>
-nnoremap <leader>4 :setlocal tabstop=4 softtabstop=4 shiftwidth=4<cr>
-nnoremap <leader>8 :setlocal tabstop=8 softtabstop=8 shiftwidth=8<cr>
 nnoremap <leader>f :FZF<cr>
 
 function! HasPaste()
@@ -113,10 +97,6 @@ nnoremap <silent> <C-p> <Plug>(ale_find_references)
 
 " powerline
 let g:powerline_pycmd="py3"
-
-autocmd BufNewFile *.pm -1r ~/.vim/template/perl.pm
-autocmd BufNewFile *.pl -1r ~/.vim/template/perl.pl
-autocmd BufNewFile *.t  -1r ~/.vim/template/perl.t
 
 set path+=**
 

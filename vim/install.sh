@@ -27,19 +27,7 @@ function _install() {
 }
 
 function _pack() {
-	for pkg in \
-		fatih/vim-go.git \
-		jparise/vim-graphql \
-		leafgarland/typescript-vim \
-		pangloss/vim-javascript \
-		rust-lang/rust.vim \
-		ryanoasis/vim-devicons.git \
-		sainnhe/sonokai \
-		tpope/vim-repeat \
-		tpope/vim-surround \
-		vim-airline/vim-airline-themes.git \
-		vim-airline/vim-airline.git \
-		w0rp/ale.git
+	for pkg in $(cat packages)
 	do
 		echo "----> $pkg"
 		clean_name=`basename $pkg .git`
